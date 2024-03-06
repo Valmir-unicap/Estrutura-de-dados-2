@@ -1,4 +1,4 @@
-package br.c3.icam.unicap;
+package AVL;
 
 public class AVLTree <T extends Comparable <T>> {
     private AVLNode<T> raiz;
