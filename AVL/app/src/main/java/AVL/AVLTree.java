@@ -1,12 +1,9 @@
-package AVL;
-/**
- *
- * @author aluno
- */
+package br.c3.icam.unicap;
+
 public class AVLTree <T extends Comparable <T>> {
     private AVLNode<T> raiz;
     private boolean statusDeBalanceamento;
-    
+
     private boolean isEmpty(){
         if(raiz == null){
             return true;
@@ -14,7 +11,35 @@ public class AVLTree <T extends Comparable <T>> {
             return false;
         }
     }
-    
+
+    public void inOrdem(){
+        if(this.isEmpty()==true){
+            System.out.println("√Årvore v√°zia!");
+        }else{
+            percorrerInOrdem(raiz);
+        }
+    }
+
+    private void percorrerInOrdem(AVLNode<T> r){
+        if(r!=null){
+            percorrerInOrdem(r.getEsquerda());
+            System.out.println(r.getInformacao());
+            percorrerInOrdem(r.getDireita());
+        }
+    }
+
+    public void inNivel(){
+        if(this.isEmpty() == true){
+            System.out.println("√Årvore v√°zia!");
+        }else{
+            //logica aqui
+        }
+    }
+
+    private void passeioPorNivel(){
+        //Ver a diferen√ßa entre inOrde e preOrdem
+    }
+
     public void inserirAVL(T valor){
         if(this.isEmpty() == true){
             this.raiz = new AVLNode(valor);
@@ -23,52 +48,53 @@ public class AVLTree <T extends Comparable <T>> {
             this.raiz = inserirNode(raiz,valor);
         }
     }
-    
-     private AVLNode<T> inserirNode(AVLNode<T> r, T valor){
+
+    private AVLNode<T> inserirNode(AVLNode<T> r, T valor){
         if(r == null){
             r = new AVLNode(valor);
             this.statusDeBalanceamento = true;
-            
+
         }else if(r.getInformacao().compareTo(valor) == 0){
             return r;
-            
+
         }else if(r.getInformacao().compareTo(valor)>0){
             r.setEsquerda(inserirNode(r.getEsquerda(),valor));
-            
+
             if (this.statusDeBalanceamento == true){
-                
+
                 switch(r.getFatorBalanceamento()){
-                    
-                    case 1: 
+
+                    case 1:
                         r.setFatorBalenceamento(0);
                         this.statusDeBalanceamento = false;
                         break;
-                    
+
                     case 0:
                         r.setFatorBalenceamento(-1);
                         break;
-                        
+
                     case -1:
                         r = this.rotacaoDireita(r);
                         break;
                 }
             }
+
         }else{
             r.setDireita(inserirNode(r.getDireita(),valor));
-            
+
             if(this.statusDeBalanceamento == true){
-                
+
                 switch (r.getFatorBalanceamento()){
-                    
+
                     case -1:
                         r.setFatorBalenceamento(0);
                         this.statusDeBalanceamento = false;
                         break;
-                        
+
                     case 0:
                         r.setFatorBalenceamento(1);
                         break;
-                        
+
                     case 1:
                         r = this.rotacaoEsquerda(r);
                         break;
@@ -77,59 +103,83 @@ public class AVLTree <T extends Comparable <T>> {
         }
         return r;
     }
-     
-     private AVLNode<T> rotacaoEsquerda(AVLNode<T> a){
-         AVLNode<T> b, c;
-         b= a.getDireita();
-         
-         //RotaÁ„o Simples
-         
-         if(b.getFatorBalanceamento() == 1){
-             a.setDireita(b.getEsquerda());
-             b.setEsquerda(a);
-             a.setFatorBalenceamento(0);
-             a = b;
-             
-             //RotaÁ„o dupla
-             
-         }else{
-             c = b.getEsquerda();
-             b.setEsquerda(c.getDireita());
-             c.setDireita(b);
-             a.setDireita(c.getEsquerda());
-             c.setEsquerda(a);
-             
-             if (c.getFatorBalanceamento() == 1){
-                 a.setFatorBalenceamento(-1);
-                 
-             }else{
-                 a.setFatorBalenceamento(0);
-         }
-             if(c.getFatorBalanceamento() == -1){
-                 b.setFatorBalenceamento(1);
-             }else{
-                 b.setFatorBalenceamento(0);
-             }
-             a=c;
-         }
-         a.setFatorBalenceamento(0);
-         this.statusDeBalanceamento = false;
-         return a;
-     }
-     
-     private AVLNode<T> rotacaoDireita(AVLNode<T> a){
-         AVLNode<T> b,c;
-         //RotaÁ„o Simples
-         
-         b = a.getEsquerda();
-         
-         if(b.getFatorBalanceamento() == -1){
-             a.setEsquerda(b.getDireita());
-             b.setDireita(a);
-             a.setFatorBalenceamento(0);
-             a = b;
-         }
-         
-         // RotaÁ„o dupla
-     }
+
+    private AVLNode<T> rotacaoEsquerda(AVLNode<T> a){
+        AVLNode<T> b, c;
+        b= a.getDireita();
+
+        //Rotacao Simples
+
+        if(b.getFatorBalanceamento() == 1){
+            a.setDireita(b.getEsquerda());
+            b.setEsquerda(a);
+            a.setFatorBalenceamento(0);
+            a = b;
+
+            //Rotacao Dupla
+
+        }else{
+            c = b.getEsquerda();
+            b.setEsquerda(c.getDireita());
+            c.setDireita(b);
+            a.setDireita(c.getEsquerda());
+            c.setEsquerda(a);
+
+            if (c.getFatorBalanceamento() == 1){
+                a.setFatorBalenceamento(-1);
+
+            }else{
+                a.setFatorBalenceamento(0);
+            }
+            if(c.getFatorBalanceamento() == -1){
+                b.setFatorBalenceamento(1);
+            }else{
+                b.setFatorBalenceamento(0);
+            }
+            a=c;
+        }
+        a.setFatorBalenceamento(0);
+        this.statusDeBalanceamento = false;
+        return a;
+    }
+
+    private AVLNode<T> rotacaoDireita(AVLNode<T> a){
+        AVLNode<T> b,c;
+        //Rotacao Simples
+
+        b = a.getEsquerda();
+
+        if(b.getFatorBalanceamento() == -1){
+            a.setEsquerda(b.getDireita());
+            b.setDireita(a);
+            a.setFatorBalenceamento(0);
+            a = b;
+
+            // Rotacao Dupla
+
+        }else{
+            c = b.getDireita();
+            b.setDireita(c.getEsquerda());
+            c.setEsquerda(b);
+            a.setEsquerda(c.getDireita());
+            c.setDireita(a);
+
+            if(c.getFatorBalanceamento() == -1){
+                a.setFatorBalenceamento(1);
+            }else{
+                a.setFatorBalenceamento(0);
+            }
+
+            if (c.getFatorBalanceamento() == 1){
+                b.setFatorBalenceamento(-1);
+            }else{
+                b.setFatorBalenceamento(0);
+            }
+
+            a = c;
+        }
+        a.setFatorBalenceamento(0);
+        this.statusDeBalanceamento = false;
+        return a;
+    }
 }
