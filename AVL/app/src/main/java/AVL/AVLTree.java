@@ -1,5 +1,7 @@
 package AVL;
 
+import java.util.LinkedList;
+
 public class AVLTree <T extends Comparable <T>> {
     private AVLNode<T> raiz;
     private boolean statusDeBalanceamento;
@@ -30,14 +32,10 @@ public class AVLTree <T extends Comparable <T>> {
 
     public void inNivel(){
         if(this.isEmpty() == true){
-            System.out.println("Árvore vázia!");
+            System.out.println("Árvore Vázia!");
         }else{
-            //logica aqui
+            passeioPorNivel();
         }
-    }
-
-    private void passeioPorNivel(){
-        //Ver a diferença entre inOrde e preOrdem
     }
 
     public void inserirAVL(T valor){
@@ -181,5 +179,29 @@ public class AVLTree <T extends Comparable <T>> {
         a.setFatorBalenceamento(0);
         this.statusDeBalanceamento = false;
         return a;
+    }
+    
+public void passeioPorNivel() {
+  LinkedList<AVLNode> fila;
+  AVLNode aux;
+
+  if (isEmpty() == false) {
+      fila = new LinkedList<>();
+      fila.add(raiz);
+
+  while (fila.isEmpty()==false) {
+      aux = fila.removeFirst();
+
+      if (aux.getEsquerda() != null) {
+        fila.add(aux.getEsquerda());
+      }
+
+      if (aux.getDireita() != null) {
+        fila.add(aux.getDireita());
+      }
+
+      System.out.println(aux.getInformacao());
+        }
+    }
     }
 }
