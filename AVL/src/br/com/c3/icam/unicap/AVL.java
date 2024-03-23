@@ -40,7 +40,7 @@ public class AVL {
                         int valor;
                         System.out.print("Digite um valor que deseja remover: ");
                         valor = in.nextInt();
-                        arvore.remover(valor);
+                        //arvore.removerAVL(valor);
                     }catch (InputMismatchException e){
                         System.out.println(e.getMessage());
                         System.out.println("Remoção não foi efetuada!");
