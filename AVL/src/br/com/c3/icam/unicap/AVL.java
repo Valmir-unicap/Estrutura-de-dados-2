@@ -1,9 +1,9 @@
-package br.com.c3.icam.unicap;
+package br.c3.icam.unicap;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Main {
+public class AVL {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int escolha=0;
@@ -34,6 +34,18 @@ public class Main {
                 case 3:
                     arvore.inNivel();
                     break;
+                    
+                case 4:
+                    try{
+                        int valor;
+                        System.out.print("Digite um valor que deseja remover: ");
+                        valor = in.nextInt();
+                        arvore.remover(valor);
+                    }catch (InputMismatchException e){
+                        System.out.println(e.getMessage());
+                        System.out.println("Remoção não foi efetuada!");
+                    }
+                    break;
 
                 case 0:
                     System.out.println("Fim do programa!");
@@ -52,9 +64,10 @@ public class Main {
         System.out.println("=======================================================");
         System.out.println("Menu");
         System.out.println("");
-        System.out.println("1- Inserir na árvore");
+        System.out.println("1- Inserir na AVL");
         System.out.println("2- Passeio em ordem");
         System.out.println("3- Passeio por nivel");
+        System.out.println("4- Remover na AVL");
         System.out.println("0- Sair do programa");
         System.out.print("Escolha uma opção: ");
     }
