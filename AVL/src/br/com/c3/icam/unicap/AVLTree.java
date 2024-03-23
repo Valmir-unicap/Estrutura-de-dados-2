@@ -53,8 +53,102 @@ public class AVLTree <T extends Comparable <T>> {
         if(this.isEmpty() == true){
             System.out.println("AVL vázia! Remoção não foi efetuada!");
         }else{
-            //this.raiz = removerNode(raiz,valor);
+            this.raiz = removerNode(raiz,valor);
             System.out.println("Remoção efetuada!");
+        }
+    }
+
+    private AVLNode<T> removerNode(AVLNode<T> atual, T valor) {
+        if (atual == null) {
+            this.statusDeBalanceamento = false;
+            return null;
+        }
+
+        int comparacao = valor.compareTo(atual.getInformacao());
+
+        if (comparacao < 0) {
+            atual.setEsquerda(removerNode(atual.getEsquerda(), valor));
+
+            if (this.statusDeBalanceamento) {
+                atual = balancearNaRemocao(atual, -1);
+            }
+
+        } else if (comparacao > 0) {
+            atual.setDireita(removerNode(atual.getDireita(), valor));
+
+            if (this.statusDeBalanceamento) {
+                atual = balancearNaRemocao(atual, 1);
+            }
+
+        } else {
+            // Nó com o valor encontrado
+            if (atual.getEsquerda() == null || atual.getDireita() == null) {
+                // Nó com um filho ou nenhum
+                atual = (atual.getEsquerda() != null) ? atual.getEsquerda() : atual.getDireita();
+                this.statusDeBalanceamento = true;
+
+            } else {
+                // Nó com dois filhos
+                AVLNode<T> substituto = encontrarMenor(atual.getDireita());
+                atual.setInformacao(substituto.getInformacao());
+                atual.setDireita(removerNode(atual.getDireita(), substituto.getInformacao()));
+
+                if (this.statusDeBalanceamento) {
+                    atual = balancearNaRemocao(atual, 1);
+                }
+            }
+        }
+        return atual;
+    }
+
+    private AVLNode<T> balancearNaRemocao(AVLNode<T> atual, int balancear) {
+        atual.setFatorBalenceamento(atual.getFatorBalanceamento() + balancear);
+
+        if (atual.getFatorBalanceamento() == -2) {
+
+            if (altura(atual.getEsquerda().getDireita()) <= altura(atual.getEsquerda().getEsquerda())) {
+                return rotacaoEsquerda(atual);
+
+            } else {
+                return rotacaoEsquerda(atual);
+            }
+
+        } else if (atual.getFatorBalanceamento() == 2) {
+
+            if (altura(atual.getDireita().getEsquerda()) <= altura(atual.getDireita().getDireita())) {
+                return rotacaoDireita(atual);
+
+            } else {
+                return rotacaoDireita(atual);
+            }
+        }
+        return atual;
+    }
+
+    private AVLNode<T> encontrarMenor(AVLNode<T> atual) {
+        while (atual.getEsquerda() != null) {
+            atual = atual.getEsquerda();
+        }
+        return atual;
+    }
+
+    private AVLNode<T> encontrarMaior(AVLNode<T> atual) {
+        while (atual.getDireita() != null) {
+            atual = atual.getDireita();
+        }
+        return atual;
+    }
+
+    public int altura(AVLNode<T> atual) {
+        if (atual == null) {
+            // Se o nó atual é nulo, a altura é -1
+            return -1;
+        } else {
+            int alturaEsquerda = altura(atual.getEsquerda());
+            int alturaDireita = altura(atual.getDireita());
+
+            // A altura do nó atual será o maior valor entre as alturas das subárvores + 1
+            return Math.max(alturaEsquerda, alturaDireita) + 1;
         }
     }
 
