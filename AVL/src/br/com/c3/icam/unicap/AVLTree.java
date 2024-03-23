@@ -1,4 +1,4 @@
-package br.com.c3.icam.unicap;
+package br.c3.icam.unicap;
 
 import java.util.LinkedList;
 
@@ -42,8 +42,19 @@ public class AVLTree <T extends Comparable <T>> {
         if(this.isEmpty() == true){
             this.raiz = new AVLNode(valor);
             this.statusDeBalanceamento = true;
+            System.out.println("AVL vázia! Inserção efetuada!");
         }else{
             this.raiz = inserirNode(raiz,valor);
+            System.out.println("Inserção efetuada!");
+        }
+    }
+
+    public void removerAVL(T valor){
+        if(this.isEmpty() == true){
+            System.out.println("AVL vázia! Remoção não foi efetuada!");
+        }else{
+            //this.raiz = removerNode(raiz,valor);
+            System.out.println("Remoção efetuada!");
         }
     }
 
