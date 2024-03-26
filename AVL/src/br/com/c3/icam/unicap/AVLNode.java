@@ -1,4 +1,5 @@
-package br.com.c3.icam.unicap;
+package br.c3.icam.unicap;
+
 public class AVLNode<T extends Comparable <T>> {
     private AVLNode<T> esquerda;
     private AVLNode<T> direita;
