@@ -78,6 +78,7 @@ public class AVL {
             escolha = in.nextInt();
         }catch (InputMismatchException e){
             System.out.println(e.getMessage());
+            return -1;
         }
         return escolha;
     }
