@@ -7,27 +7,27 @@ public class AVLTree<T extends Comparable <T>> {
     return root == null; 
   }
 
-public void insert (T value) {
-  if (this.isEmpty() == true) { 
-    this.root = new AVLNode (value); 
-    this.status = true;
-  } else {
-    this.root = insertNode (this.root, value); 
+  public void insert (T value) {
+    if (this.isEmpty() == true) { 
+      this.root = new AVLNode (value); 
+      this.status = true;
+    } else {
+      this.root = insertNode (this.root, value); 
+    }
   }
-}
 
   private AVLNode<T> insertNode (AVLNode<T> r, T value) { 
     if (r == null) {
       r = new AVLNode (value);
       this.status = true; 
-    }
-      
-  else if (r.getInfo().compareTo(value) > 0) { 
-    r.setLeft(insertNode (r.getLeft(),value)); 
+    
+    } else if (r.getInfo().compareTo(value) > 0) { 
+      r.setLeft(insertNode (r.getLeft(),value)); 
     
     if (this.status == true) {
       
       switch (r.getFatBal()) { 
+        
         case 1: 
           r.setFatBal(0);
           this.status = false;
@@ -40,8 +40,9 @@ public void insert (T value) {
         case -1 : 
           r = this.rotateRight(r); 
           break;
-        } // fim switch } // fim if
+        } // fim switch 
       } // fim if
+    } // fim if
 
     else {
       r.setRight(insertNode (r.getRight(),value)); 
@@ -49,18 +50,20 @@ public void insert (T value) {
       if (this.status == true) {
         
         switch (r.getFatBal()) { 
+          
           case -1: 
             r.setFatBal(0);
             this.status = false;
-        break;
+          break;
             
           case 0: 
             r.setFatBal(1); 
-            break;
+          break;
             
           case 1 : 
             r = this.rotateLeft(r); 
-            break;
+          break;
+            
           } // fim switch 
         } // fim if
       } // fim else 
