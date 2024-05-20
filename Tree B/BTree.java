@@ -40,8 +40,8 @@ private void insertB(NodeB raiz, T info, Retorno result) {
   int i, pos;
   T infoMediano; 
   //auxiliar para armazenar a chave que irá subir para o pai // NodeB filhoDir; //referência para o filho à direita da chave
-  if (raiz == null) {
-//O nó anterior (que é um nó folha) é o ideal para inserir a nova chave 
+  
+  if (raiz == null) { //O nó anterior (que é um nó folha) é o ideal para inserir a nova chave 
     result.setH(true);
     result.setInfo(info);
     
@@ -75,18 +75,18 @@ private void insertB(NodeB raiz, T info, Retorno result) {
       raiz.setInfo(i, null);
       raiz.setFilho(i + 1, null); }
       raiz.setN(this.minimo);
-//Verifica em qual nó será inserida a nova chave 
+
+        //Verifica em qual nó será inserida a nova chave 
         if (pos <= this.minimo) {
           raiz.insereChave(result.getInfo(), result.getFilhoDir());
-        
         } else {
-          
           temp.insereChave(result.getInfo(), result.getFilhoDir());
         }
         
 //retorna o mediano para inserí-lo no nó pai e o temp como filho direito do mediano.
         result.setInfo(infoMediano);
         result.setFilhoDir(temp);
+        }
       } 
     }
   } 
