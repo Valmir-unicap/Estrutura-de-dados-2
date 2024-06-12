@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TABLE_SIZE 10
+#define TABLE_SIZE 101
 #define MAX_DESCRIPTION 100
 #define MAX_PRODUCTS 100
 
