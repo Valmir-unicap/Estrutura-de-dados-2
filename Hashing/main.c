@@ -8,16 +8,16 @@
 
 typedef struct {
     int code;
-    char description[MAX_DESCRIPTION];
-    float price;
     int quantity;
+    float price;
+    char description[MAX_DESCRIPTION];
 } Product;
 
 typedef struct {
     int product_code;
-    int file_position;
     int status; // 0 - free, 1 - in use
     int next; // Internal chaining
+    int file_position;
 } HashRecord;
 
 int hashFunction(int code) {
