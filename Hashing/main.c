@@ -101,7 +101,7 @@ int main() {
         hash_table[i].next = -1;
     }
 
-    int option;
+    int choose;
   
     do {
         printf("\nMenu:\n");
@@ -111,9 +111,9 @@ int main() {
         printf("4. Display data of a product\n");
         printf("0. Exit\n");
         printf("Choose an option: ");
-        scanf("%d", &option);
+        scanf("%d", &choose);
 
-        switch (option) {
+        switch (choose) {
             case 1:
                 registerProduct(products, hash_table);
                 break;
@@ -155,7 +155,7 @@ int main() {
                 printf("Invalid option.\n");
         }
       
-    } while (option != 0);
+    } while (choose != 0);
 
     return 0;
 }
